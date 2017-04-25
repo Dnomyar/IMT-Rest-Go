@@ -16,8 +16,6 @@ func main() {
 
 	util.SetFilters(filters)
 
-	pokemon.InitPokemon;
-
 	util.Router(http.MethodGet, "/", pokemon.GetPokemon)
 
 	util.Router(http.MethodPost, "/", pokemon.AddPokemon)
