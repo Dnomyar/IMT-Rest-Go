@@ -9,6 +9,9 @@ type FilterAuth struct {}
 
 
 func (f FilterAuth) Filter(r *http.Request) bool {
-	fmt.Println("test")
-	return false
+
+	var authorisationHeader = r.Header.Get("Authorization")
+
+	fmt.Println("Autorisation header : " + authorisationHeader)
+	return authorisationHeader == "1234"
 }

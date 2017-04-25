@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"errors"
 	"util/filter"
-	"fmt"
 )
 
 var filters = []filter.Filter{}
@@ -18,7 +17,11 @@ func Router(code string, path string, handler func(http.ResponseWriter, *http.Re
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if (code == r.Method) {
 			for i := range filters {
-				fmt.Println(filters[i].Filter(r))
+				if(! filters[i].Filter(r)){
+					RespError(w, errors.New("Error in filter"), http.StatusBadRequest)
+					return
+				}
+
 			}
 			handler(w, r)
 		} else {
