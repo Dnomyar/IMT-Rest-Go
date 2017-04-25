@@ -3,7 +3,7 @@ package pokemon
 import (
 	"net/http"
 	"encoding/json"
-	"util"
+	"fmt"
 )
 
 var pokemons []Pokemon = []Pokemon{
@@ -51,8 +51,15 @@ pokemons = append(pokemons, Pokemon{
 
 func AddPokemon(w http.ResponseWriter, r *http.Request) {
 
+}
+
+func GetPokemon(w http.ResponseWriter, r *http.Request) {
 	res, err := json.Marshal(pokemons)
-
 	util.RespJson(w, 200, res, err)
+}
 
+func AddPokemon(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("%+v\n", r.Body)
+	res, err := json.Marshal(pokemons)
+	util.RespJson(w, 200, res, err)
 }
