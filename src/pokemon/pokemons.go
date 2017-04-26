@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"util"
-	"fmt"
+	"log"
+	"strconv"
 )
 
 var pokemons []Pokemon = []Pokemon{
@@ -50,18 +51,40 @@ pokemons = append(pokemons, Pokemon{
 	})
  */
 
-func GetPokemon(w http.ResponseWriter, r *http.Request) {
-	res, err := json.Marshal(pokemons)
-	util.RespJson(w, 200, res, err)
-}
+
 
 func GetPokemons(w http.ResponseWriter, r *http.Request) {
 	res, err := json.Marshal(pokemons)
 	util.RespJson(w, 200, res, err)
 }
 
+func GetPokemon(w http.ResponseWriter, r *http.Request) {
+
+	var id, err = strconv.ParseInt(r.URL.Path[1:], 10, 32)
+
+	log.Println(err)
+
+	res, err := json.Marshal(pokemons[id])
+
+	log.Println(err)
+
+	util.RespJson(w, 200, res, err)
+}
+
+
 func AddPokemon(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("%+v\n", r.GetBody)
+
+	decoder := json.NewDecoder(r.Body)
+	var pokemon Pokemon
+	err := decoder.Decode(&pokemon)
+	if err != nil {
+		panic(err)
+	}
+	defer r.Body.Close()
+	log.Println(pokemon)
+
+	pokemons = append(pokemons, pokemon)
+
 	res, err := json.Marshal(pokemons)
 	util.RespJson(w, 200, res, err)
 }
