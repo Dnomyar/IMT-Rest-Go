@@ -1,6 +1,13 @@
+# Rest API implementation in Go
+
+The objective of this project is to implement a Rest API (Crud) in Go.
+
+This project is not finished yet.
+
+## Api contract
 You may look at the API contract at : https://listedepokemon.restlet.io
 
-** CREATE **
+### CREATE
 Require :
  * Authorization
 
@@ -14,7 +21,7 @@ Failure :
  * 400 BAD REQUEST
  * 401 UNAUTHORIZED
 
-** READ **
+### READ
 Require :
  * Empty
 
@@ -28,7 +35,7 @@ Success :
 Failure :
  * 404 NOT FOUND
 
-** UPDATE **
+### UPDATE
 Require :
  * Authorization
 
@@ -43,7 +50,7 @@ Failure :
  * 401 UNAUTHORIZED
  * 404 NOT FOUND
 
-** DELETE **
+### DELETE
 Require :
  * Authorization
 
